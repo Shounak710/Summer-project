@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
+from website import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^book/', include('Books.urls')),
-    url(r'^user/', include('Users.urls')),
+    url(r'^book/', views.BookViewSet.as_view({'get':'list'})),
+    url(r'^user/', views.UserViewSet.as_view({'get':'list'})),
+    url(r'^issueBook',views.issue),
+    url(r'^returnBook',views.returnBook),
+    url(r'^issuedBook',views.issued.as_view({'get':'list'})),
 ]

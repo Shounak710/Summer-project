@@ -1,0 +1,9 @@
+<html>
+<form action="/returnBook" method="post">
+  {% csrf_token %}
+  {% for book in books %}
+  <input type="hidden" name="bookId" value="{{book.bookID}}">{{book.Title}}<br>
+  <input type="submit" value="Return"><br><br>
+  {% endfor %}
+</form>
+</html>
