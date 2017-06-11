@@ -16,13 +16,13 @@ class BookViewSet(ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('ID','Title', 'Author','Category')
+    search_fields = ('bookID','Title', 'Author','Genre')
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('ID','User')
+    search_fields = ('userID','User')
 
 class issued(ModelViewSet):
     queryset = issueBook.objects.all()
