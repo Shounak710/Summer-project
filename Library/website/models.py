@@ -2,19 +2,21 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    userID = models.AutoField(primary_key=True)
+    ID = models.AutoField(primary_key=True)
+    userID = models.CharField(max_length=10 , default = " ")
     Name = models.CharField(name='User' , max_length=30)
 
     def __str__(self):
         return self.User
 
 class Book(models.Model):
-    STATUS = (('Issued','Issued'),('Available','Available'))
-    bookID = models.AutoField(primary_key=True)
+    STATUS = (('1','1'),('0','0'))
+    ID = models.AutoField(primary_key=True)
+    bookID = models.CharField(max_length=10, default = " ")
     Name = models.CharField(name='Title' , max_length=30)
     Author = models.CharField(name='Author' , max_length=20)
     Genre = models.CharField(name='Genre' , max_length=10)
-    status = models.CharField(max_length=10, choices=STATUS, default="Available")
+    status = models.CharField(max_length=10, choices=STATUS, default="0")
 
     def __str__(self):
         return self.Title

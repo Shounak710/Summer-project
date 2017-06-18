@@ -20,7 +20,8 @@ from website import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^book/', views.BookViewSet.as_view({'get':'list'})),
-    url(r'^user/', views.UserViewSet.as_view({'get':'list'})),
+    url(r'^user/$', views.UserViewSet.as_view({'get':'list'})),
+    url(r'^user/(?P<userId>\w{0,50})/$', views.userRecord),
     url(r'^issueBook',views.issue),
     url(r'^returnBook',views.returnBook),
     url(r'^issuedBook',views.issued.as_view({'get':'list'})),

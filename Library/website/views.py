@@ -28,19 +28,25 @@ class issued(ModelViewSet):
     queryset = issueBook.objects.all()
     serializer_class = issueSerializer
 
+def userRecord(request , userId):
+    user = User.objects.filter(userID = userId)
+    issuedBook = issueBook.objects.filter(libraryUser = user)
+    return render(request, 'user.html',{'issuedBook':issuedBook})
+
 @csrf_exempt
 def issue(request):
     if request.method == "GET":
-        books = Book.objects.filter(status = "Available")
+        books = Book.objects.filter(status = "0")
         return render(request, 'issueForm.html',{'books':books})
 
     if request.method == "POST":
         bookId = request.POST['bookId']
+        userId = request.POST['userId']
         book = Book.objects.filter(bookID = bookId)[0]
-        libraryUser = User.objects.filter(userID = 1)[0]
+        libraryUser = User.objects.filter(userID = userId)[0]
         noOfDays = request.POST['noOfDays']
-        issueBook(Book = book, libraryUser = libraryUser, noOfDays = 3).save()
-        book.status = "Issued"
+        issueBook(Book = book, libraryUser = libraryUser, noOfDays = noOfDays).save()
+        book.status = "1"
         book.save()
         return HttpResponseRedirect('/book')
 
@@ -53,6 +59,6 @@ def returnBook(request):
     if request.method == "POST":
         bookId = request.POST['bookId']
         book = Book.objects.filter(bookID = bookId)[0]
-        book.status = "Available"
+        book.status = "0"
         book.save()
         return HttpResponseRedirect('/book')
