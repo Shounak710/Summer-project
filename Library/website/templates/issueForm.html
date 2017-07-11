@@ -1,11 +1,5 @@
-<html>
 <form action="/issueBook" method="post">
   {% csrf_token %}
-  {% for book in books %}
-  <input type="radio" name="bookId" value="{{book.bookID}}">{{book.Title}}<br>
-  <input type = "text" name = "userId"><br>
-  <input type = "number" name = "noOfDays"><br>
+    {{form}}
   <input type="submit" value="Add"><br><br>
-  {% endfor %}
 </form>
-</html>
