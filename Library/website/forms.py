@@ -1,7 +1,8 @@
 from django import forms
 from .models import *
 
-books = [[x.bookID,x.Title] for x in Book.objects.filter(status = "0")]
+book = Book.objects.all()
+books = [[x.bookID,x.Title] for x in book.filter(status = "0")]
 
 class IssueBook(forms.Form):
     book = forms.MultipleChoiceField(choices=books, required=True)

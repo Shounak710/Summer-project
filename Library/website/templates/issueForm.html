@@ -1,5 +1,7 @@
 <form action="/issueBook" method="post">
   {% csrf_token %}
-    {{form}}
+    {{form.book}}
+    {{form.noOfDays}}
+    {{form.userId}}
   <input type="submit" value="Add"><br><br>
 </form>

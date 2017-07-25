@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 import django_filters.rest_framework
+import re
 from rest_framework import generics
 from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
@@ -40,15 +41,16 @@ def issue(request):
     if request.method == "POST":
         form = IssueBook(request.POST)
         if form.is_valid():
-            bookId = form.cleaned_data['book']
-            userId = form.cleaned_data['userId']
-            noOfDays = form.cleaned_data['noOfDays']
+            bookId = form.cleaned_data["book"]
+            userId = form.cleaned_data["userId"]
+            noOfDays = form.cleaned_data["noOfDays"]
             book = Book.objects.get(bookID = str(bookId)[2:-2])
             libraryUser = User.objects.filter(userID = userId)[0]
             issueBook(Book = book, libraryUser = libraryUser, noOfDays = noOfDays).save()
             book.status = "1"
             book.save()
-            return HttpResponse("Successfully issued")
+            return HttpResponse("Successfully Issued")
+
 
     else:
         form = IssueBook()
