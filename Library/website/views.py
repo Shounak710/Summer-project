@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 import django_filters.rest_framework
+from django.core import serializers
 import re
 from rest_framework import generics
 from rest_framework import filters
@@ -32,9 +33,10 @@ class issued(ModelViewSet):
     serializer_class = issueSerializer
 
 def userRecord(request , userId):
-    user = User.objects.filter(userID = userId)
+    user = User.objects.get(userID = userId)
     issuedBook = issueBook.objects.filter(libraryUser = user)
-    return render(request, 'user.html',{'issuedBook':issuedBook})
+    ibJ = serializers.serialize('json', issuedBook)
+    return HttpResponse(ibJ, content_type='json')
 
 @csrf_exempt
 def issue(request):
